@@ -32,7 +32,5 @@ class Inventory:
             inventory_data.update(new_item)
         with open("inventory.json", "w") as file:
             json.dump(inventory_data, file, indent=4)
-        with open("inventory.json", "r") as file:
-            inventory_data = json.load(file)
 
         self.inventory_data = inventory_data
