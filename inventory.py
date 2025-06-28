@@ -46,9 +46,3 @@ class Inventory:
             json.dump(inventory_data, file, indent=4)
 
         self.update_variables(inventory_data)
-
-
-x = Inventory()
-print(x.item_list)
-x.add_item("dr_pepper", 1.3)
-print(x.item_list)
