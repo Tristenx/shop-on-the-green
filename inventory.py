@@ -17,7 +17,11 @@ class Inventory:
             with open("inventory.json", "r") as file:
                 inventory_data = json.load(file)
 
-        self.inventory_data = inventory_data
+        self.update_variables(inventory_data)
+
+    def update_variables(self, data):
+        self.inventory_data = data
+        self.item_list = [key for key, value in self.inventory_data.items()]
 
     def add_item(self, item_name, price):
         new_item = {
@@ -31,7 +35,7 @@ class Inventory:
         with open("inventory.json", "w") as file:
             json.dump(inventory_data, file, indent=4)
 
-        self.inventory_data = inventory_data
+        self.update_variables(inventory_data)
 
     def remove_item(self, item_name):
         with open("inventory.json", "r") as file:
@@ -41,10 +45,10 @@ class Inventory:
         with open("inventory.json", "w") as file:
             json.dump(inventory_data, file, indent=4)
 
-        self.inventory_data = inventory_data
+        self.update_variables(inventory_data)
 
 
 x = Inventory()
-print(x.inventory_data)
-x.add_item("eggs", 1.8)
-print(x.inventory_data)
+print(x.item_list)
+x.add_item("dr_pepper", 1.3)
+print(x.item_list)
