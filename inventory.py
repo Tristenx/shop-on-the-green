@@ -10,7 +10,6 @@ class Inventory:
             data = {
                 "eggs": {
                     "price": 1.8,
-                    "num_sales": 0,
                 }
             }
             with open("inventory.json", "w") as file:
@@ -24,7 +23,6 @@ class Inventory:
         new_item = {
             item_name: {
                 "price": price,
-                "num_sales": 0,
             }
         }
         with open("inventory.json", "r") as file:
