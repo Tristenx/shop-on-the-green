@@ -9,6 +9,7 @@ class Inventory:
         self.filepath = "inventory_data.json"
         if not self.json_exists():
             self.create_json_file()
+        self.data = self.get_data()
 
     def json_exists(self) -> bool:
         """Checks if a file exists."""
@@ -41,6 +42,7 @@ class Inventory:
             data.update(new_item_data)
             with open(self.filepath, "w", encoding="utf-8") as file:
                 json.dump(data, file, indent=4)
+            self.data = self.get_data()
 
     def remove_item(self, item: str):
         """Removes an item from the json file."""
@@ -50,3 +52,10 @@ class Inventory:
             data.pop(item)
             with open(self.filepath, "w", encoding="utf-8") as file:
                 json.dump(data, file, indent=4)
+            self.data = self.get_data()
+
+    def get_data(self) -> dict:
+        """Reads the json file and returns the data dictionary."""
+        with open(self.filepath, "r", encoding="utf-8") as file:
+            data = json.load(file)
+        return data
