@@ -50,7 +50,3 @@ class Inventory:
             data.pop(item)
             with open(self.filepath, "w", encoding="utf-8") as file:
                 json.dump(data, file, indent=4)
-
-
-inv = Inventory()
-inv.add_item("coffee", 4.70)
