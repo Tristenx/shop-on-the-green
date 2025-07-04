@@ -1,48 +1,33 @@
+"""Imports json to enable json manipulation."""
 import json
 
 
 class Inventory:
+    """Manages the inventory json file and allows the user to add or remove items."""
+
     def __init__(self):
+        if not self.json_exists("inventory_data.json"):
+            self.create_json_file("inventory_data.json")
+        else:
+            print("yes")
+
+    def json_exists(self, filepath: str) -> bool:
+        """Checks if a file exists."""
         try:
-            with open("inventory.json", "r") as file:
-                inventory_data = json.load(file)
+            with open(filepath, "r", encoding="utf-8"):
+                return True
         except FileNotFoundError:
-            data = {
-                "eggs": {
-                    "price": 1.8,
-                }
-            }
-            with open("inventory.json", "w") as file:
-                json.dump(data, file, indent=4)
-            with open("inventory.json", "r") as file:
-                inventory_data = json.load(file)
+            return False
 
-        self.update_variables(inventory_data)
-
-    def update_variables(self, data):
-        self.inventory_data = data
-        self.item_list = [key for key, value in self.inventory_data.items()]
-
-    def add_item(self, item_name, price):
-        new_item = {
-            item_name: {
-                "price": price,
+    def create_json_file(self, filepath: str):
+        """Creates a json file."""
+        default_data = {
+            "item": {
+                "price": 0
             }
         }
-        with open("inventory.json", "r") as file:
-            inventory_data = json.load(file)
-            inventory_data.update(new_item)
-        with open("inventory.json", "w") as file:
-            json.dump(inventory_data, file, indent=4)
+        with open(filepath, "w", encoding="utf-8") as file:
+            json.dump(default_data, file, indent=4)
 
-        self.update_variables(inventory_data)
 
-    def remove_item(self, item_name):
-        with open("inventory.json", "r") as file:
-            inventory_data = json.load(file)
-            if item_name in inventory_data:
-                del inventory_data[item_name]
-        with open("inventory.json", "w") as file:
-            json.dump(inventory_data, file, indent=4)
-
-        self.update_variables(inventory_data)
+inv = Inventory()
