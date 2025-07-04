@@ -28,8 +28,8 @@ class Inventory:
         with open(filepath, "w", encoding="utf-8") as file:
             json.dump(default_data, file, indent=4)
 
-    def add_item(self, filepath, item: str, price: float):
-        """Adds an item and its price to the json file"""
+    def add_item(self, filepath: str, item: str, price: float):
+        """Adds an item and its price to the json file."""
         new_item_data = {
             item: {
                 "price": price
@@ -41,6 +41,14 @@ class Inventory:
         with open(filepath, "w", encoding="utf-8") as file:
             json.dump(data, file, indent=4)
 
+    def remove_item(self, filepath: str, item: str):
+        """Removes an item from the json file."""
+        with open(filepath, "r", encoding="utf-8") as file:
+            data = json.load(file)
+        data.pop(item)
+        with open(filepath, "w", encoding="utf-8") as file:
+            json.dump(data, file, indent=4)
+
 
 inv = Inventory()
-inv.add_item(inv.filepath, "bread", 2.70)
+inv.add_item(inv.filepath, "bread", 2.7)
