@@ -6,10 +6,9 @@ class Inventory:
     """Manages the inventory json file and allows the user to add or remove items."""
 
     def __init__(self):
-        if not self.json_exists("inventory_data.json"):
-            self.create_json_file("inventory_data.json")
-        else:
-            print("yes")
+        self.filepath = "inventory_data.json"
+        if not self.json_exists(self.filepath):
+            self.create_json_file(self.filepath)
 
     def json_exists(self, filepath: str) -> bool:
         """Checks if a file exists."""
@@ -29,5 +28,19 @@ class Inventory:
         with open(filepath, "w", encoding="utf-8") as file:
             json.dump(default_data, file, indent=4)
 
+    def add_item(self, filepath, item: str, price: float):
+        """Adds an item and its price to the json file"""
+        new_item_data = {
+            item: {
+                "price": price
+            }
+        }
+        with open(filepath, "r", encoding="utf-8") as file:
+            data = json.load(file)
+        data.update(new_item_data)
+        with open(filepath, "w", encoding="utf-8") as file:
+            json.dump(data, file, indent=4)
+
 
 inv = Inventory()
+inv.add_item(inv.filepath, "bread", 2.70)
