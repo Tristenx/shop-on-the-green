@@ -2,7 +2,7 @@
 
 
 class Checkout:
-    """Adds items to a cart and calculates the total price."""
+    """Adds or removes items to a cart and calculates the total price."""
 
     def __init__(self, inventory_data: dict):
         self.inventory_data = inventory_data
@@ -19,3 +19,7 @@ class Checkout:
         for item in self.cart:
             total += self.inventory_data[item]["price"]
         return total
+
+    def empty_cart(self):
+        """Removes all items from the cart."""
+        self.cart = []
